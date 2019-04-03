@@ -43,7 +43,8 @@ from jieba import initialize
 from pkuseg import pkuseg
 from thulac import thulac
 from telegram import InputTextMessageContent, InlineQueryResultArticle
-from telegram.ext import Updater, CallbackContext, InlineQueryHandler
+from telegram.ext import (Updater, CommandHandler,
+                          CallbackContext, InlineQueryHandler,)
 from telegram.update import Update
 
 from config import BOT_TOKEN
@@ -93,10 +94,24 @@ def words(update: Update, context: CallbackContext) -> None:
     )
 
 
+def start_cmd(update: Update, context: CallbackContext) -> None:
+    """Start command."""
+    context.bot.send_message(
+        chat_id=update.message.chat_id,
+        text="Nasy Words Bot\n"
+        "  -- Help you break a Chinese string into words.\n"
+        "  -- It joins words with separating spaces.\n"
+        "  -- inline bot\n"
+        "  -- https://github.com/nasyxx/nasy-TG-words-bot",
+    )
+
+
 def main() -> None:
     """Main function."""
     bot = Updater(token=BOT_TOKEN, use_context=True)
     dispatcher = bot.dispatcher
+
+    dispatcher.add_handler(CommandHandler("start", start_cmd))
     dispatcher.add_handler(InlineQueryHandler(words))
 
     bot.start_polling()
