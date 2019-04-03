@@ -9,6 +9,8 @@ license = "GPL-3.0+"
 python = "^3.7"
 python-telegram-bot = {version = "^11.1",allows-prereleases = true}
 thulac = "^0.2.0"
+jieba = "^0.39.0"
+pkuseg = {version = "^0.0.21",allows-prereleases = true}
 
 [tool.black]
 line-length=79
